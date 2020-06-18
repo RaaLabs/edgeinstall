@@ -10,6 +10,7 @@ Scripts, config and helper programs to do the post install needed on the edge bo
         - [ ] Create an installer clr-installer.yaml that will hold:
             - [x] Disk partitioning
             - [ ] Users
+                Generate password to be read by input
             - [ ] Bundles to include by default
             - [ ] Post install scripts to run
                 - [ ] What can be run directly via the installer
@@ -25,6 +26,23 @@ Scripts, config and helper programs to do the post install needed on the edge bo
         - [ ] set swupd mirror to local sftp service
 
 3. Set ip adresses on interfaces (can be done with systemd script)
+    
+    ```text
+    Interface `enp4s0` named `Local`
+    Address: `10.144.1.1/24`
+    Gateway: `10.144.1.2`
+    ```
+
+    ```text    
+    Get available IP from register for ship\
+    Interface `enp4s?` named `WAN`\
+    Address: entered by user\
+    Gateway: entered by user\
+    DNS: One should be entered by user, and the other set to `8.8.8.8`
+    ```
+
+    Bring both interfaces up
+
     - [ ] TODO
         - [ ] Should it be done automatically, or with a onetime script to run at startup ?
         - [ ] Make sure gatway are only added to the ones who are supposed to route externally
@@ -43,10 +61,14 @@ Scripts, config and helper programs to do the post install needed on the edge bo
         Done with `wireguardinitconf`
         - [x] Create wg0.conf with unique and routable local ip
         Done with `wireguardinitconf`
+        - [x] Print vpn server command to screen
+        Done with `wireguardinitconf`
 
 6. IOTedge (can be done with systemd script)
-    - [ ] TODO
-        - [ ] Check what is needed here since it is all running in docker now
+    - [ ] TODO: Check what is needed here since it is all running in docker now
+        - [ ] `mkdir -p /etc/iotedge/storage`
+        - [ ] create `/etc/iotedge/config.yaml`
+        Check how the content is distributed to the config file, Janitor/Ansible ?
 
 7. 4G/LTE (can be done with systemd script)
     - [ ] TODO, procedure described in the `doc-clear-linux` doc
@@ -56,6 +78,9 @@ Scripts, config and helper programs to do the post install needed on the edge bo
 
 8. Get serial number
     - [x] Script done in ./getsysteminformation/getsysteminformation
+
+9. Set FQDN for hostname
+    - [ ] Set a hostname for the OS
 
 - [x] one
 - [ ] two
