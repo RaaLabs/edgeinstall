@@ -1,0 +1,57 @@
+block-devices: [
+   {name: "bdevice", file: "/dev/sda"}
+]
+targetMedia:
+- name: ${bdevice}
+  type: disk
+  children:
+  - name: ${bdevice}1
+    fstype: vfat
+    mountpoint: /boot
+    label: CLR_BOOT
+    size: "150M"
+    type: part
+  - name: ${bdevice}2
+    label: CLR_SWAP
+    fstype: swap
+    size: "32M"
+    type: part
+  - name: ${bdevice}3
+    fstype: ext4
+    mountpoint: /
+    label: CLR_ROOT
+    # size: "0" will make it use the remaining space of the disk
+    size: "0"
+    type: part
+
+bundles: [aspell-fr, strace, sysadmin-basic, cloud-native-basic, os-core-plus, procps-ng, wpa_supplicant, xz, aspell-de, gzip, linux-firmware-extras, openvswitch, os-core, acpica-unix2, dolittle-edge, powertop, python3-basic, tmux, glibc-locale, minicom, socat, NetworkManager, bootloader, dpdk, file, libstdcpp, parallel, tzdata, znc, git, iproute2, kbd, lib-openssl, linux-firmware, linux-firmware-wifi, os-core-update, diffutils, iptables, jq, less, net-tools, openssl, aspell, clr-installer, clr-network-troubleshooter, ethtool, openssh-server, zstd, aspell-es, containers-basic, gnupg, libglib, man-pages, rsync, unzip, vim, curl, p11-kit, perl-basic, shipos-branding, sudo, dolittle-edge-dell-5000, findutils, htop, os-core-webproxy, syslinux, azure-iotedge, openssh-client, wget, iperf, network-basic, patch, which, kernel-lts, kernel-native, kernel-install, shells, ModemManager]
+        
+keyboard: us
+language: en_US.UTF-8
+
+users:
+  - login: raalabs
+    username: Clear Linux OS
+    admin: true
+    # to generate a password
+    # clr-installer --genpass <password>
+    password: $6$tSfH35cpQ2StgBXQ$A4PMcdCkJD3ruf.IruL4h9jgkcMn1A/KSfR8rDi0aFyqVq4Afmx3lca3QICnYZlqcqaFRr5c9bkbK7zqNdigP/
+  
+
+autoUpdate: false
+postArchive: false
+postReboot: false
+telemetry: false
+iso: true
+keepImage: true
+keyboard: us
+language: en_US.UTF-8
+kernel: kernel-lts
+
+# The post install script will run the `./scripts/post-install-on-edge.sh` script.
+# The argument `${chrootDir}` will take the value of the `chrootDir` environment
+# variable and feed it to the script. Inside the script that argument will be
+# available as `$1`.
+post-install: [
+   {cmd: "scripts/post-install.sh ${chrootDir}"}
+]

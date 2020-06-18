@@ -1,0 +1,11 @@
+{
+    "PrivateKey": "",
+    "Address": "",
+    "PublicKey": "ihVXIiNUEEod9dnhl37b7nZllJaKDQ9OszRihngu2HA=",
+    "AllowedIPs": [
+        "10.9.1.1/32",
+        "51.120.77.187/32",
+        "10.9.1.244/32"
+    ],
+    "Endpoint": "onevpn.raalabs.tech:5560"
+}

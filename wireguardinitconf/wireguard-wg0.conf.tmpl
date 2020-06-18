@@ -1,0 +1,9 @@
+[Interface]
+PrivateKey = {{.LocalPrivateKey}}
+Address = {{.LocalAddress}}
+
+[Peer]
+PublicKey = {{.PeerPubKey}}
+AllowedIPs = {{range $element := .AllowedIPs}} {{$element}}{{end}}
+Endpoint = {{.EndPointAndPort}}
+PersistentKeepalive = 25
