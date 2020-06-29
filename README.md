@@ -15,11 +15,11 @@ Scripts, config and helper programs to do the post install needed on the edge bo
     <https://github.com/RaaLabs/clearlinux/tree/master/examples/mix%20-%20release%20with%20post%20install%20example>
         - [ ] Create an installer clr-installer.yaml that will hold:
             - [x] Disk partitioning
-            - [ ] Users
+            - [x] Users
                 Set a default password for the installation, will be changed later in the post-install-tasks
-            - [ ] Bundles to include by default
+            - [x] Bundles to include by default
                 Check what should be added or removed here.
-            - [ ] Post install scripts to run
+            - [x] Post install scripts to run
                 - What can be run directly via the installer
                 - What should be run as a one time boot script controlled via systemd
             - [ ] Replace the dolittle logo
@@ -27,10 +27,10 @@ Scripts, config and helper programs to do the post install needed on the edge bo
             - [ ] In `scripts/post-install-on-edge.sh` clone the repository `git@github.com:RaaLabs/edgepostinstall.git` to a work directory on the installed machine, and the post-install.sh creates a one time triggered systemd unit who start the wrapper script for all the other tasks/scripts to be run on first bootup.
 
 2. Swupd config (done at first bootup)
-    - [ ] Use scripts from ansible automation:\
+    - [x] Use scripts from ansible automation:\
     <https://github.com/RaaLabs/clearlinux/tree/master/automation-scripts>
-        - [ ] Install sftp service
-        - [ ] Enable sftp in systemd autostart with correct settings
+        - [x] Install sftp service
+        - [x] Enable sftp in systemd autostart with correct settings
         - [x] Set correct swupd config
         - [x] set swupd mirror to local sftp service
 
@@ -58,11 +58,14 @@ Scripts, config and helper programs to do the post install needed on the edge bo
         - [ ] Make sure gatway are only added to the ones who are supposed to route externally
 
 4. Generate passwords, and eventual users (done at first bootup)
-    - [ ] TODO
-        - [ ] Users and password should be printed to console so they can be registered in 1Password
+    - [x] 
+        - [x] Users and password should be printed to console so they can be registered in 1Password.
+        This one might be better done after the installation is done and you can log in via ssh and set new passwords to avoid typing long passwords in the console
+        - [x] prepare keys and sudo file for ansible user
+        Put into post-install part of the install image.
 
 5. Configure wireguard (done at first bootup)
-    - [ ] Partially done in the `wireguardinitconf`program, and the rest is done in <https://github.com/RaaLabs/clearlinux/tree/master/automation-scripts>
+    - [x] Partially done in the `wireguardinitconf`program, and the rest is done in <https://github.com/RaaLabs/clearlinux/tree/master/automation-scripts>
         - [x] Install wireguard
         Already done since the bundle `network-basics` are in the mix
         - [x] Create systemd config for wireguard start with timer
@@ -87,7 +90,11 @@ Scripts, config and helper programs to do the post install needed on the edge bo
         - [ ] Enable modemmanager in systemd
 
 8. Get serial number (done at first bootup)
-    - [x] Script done in ./getsysteminformation/getsysteminformation
+    - [x] Script done in ./get-systeminformation/getsysteminformation
 
 9. Set FQDN for hostname (done at first bootup)
     - [x] Set a hostname for the OS
+    Done in set-hostname
+
+10. Key handling for users
+    - [x] copy key pairs needed for users
