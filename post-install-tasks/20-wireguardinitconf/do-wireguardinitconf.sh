@@ -1,16 +1,17 @@
 #!/bin/bash
 
+#!/bin/bash
+
 while :
 do
     echo "Enter the local ip address <ip>/<mask> :";
     read ip
-    err = $(./wireguardinitconf -localAddress $ip)
 
-    if [$err -ne 0]
-    then
-        continue
+    $PWD/wireguardinitconf -localAddress $ip
+    if [ $? -eq 0 ]; then
+        echo OK
+	break
+    else
+        echo FAIL
     fi
-
-    break
 done
-     

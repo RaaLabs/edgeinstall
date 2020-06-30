@@ -58,7 +58,7 @@ Scripts, config and helper programs to do the post install needed on the edge bo
         - [ ] Make sure gatway are only added to the ones who are supposed to route externally
 
 4. Generate passwords, and eventual users (done at first bootup)
-    - [x] 
+    - [x]
         - [x] Users and password should be printed to console so they can be registered in 1Password.
         This one might be better done after the installation is done and you can log in via ssh and set new passwords to avoid typing long passwords in the console
         - [x] prepare keys and sudo file for ansible user
