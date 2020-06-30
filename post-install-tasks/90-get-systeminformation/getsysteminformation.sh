@@ -27,4 +27,4 @@ dmidecode -s system-manufacturer|xargs echo "* manufacturer : "
 dmidecode -s system-product-name|xargs echo "* product name : "
 dmidecode -s system-serial-number|xargs echo "* serial number : "
 
-echo "Press any key to continue..." && read
+echo "Press enter to continue..." && read
