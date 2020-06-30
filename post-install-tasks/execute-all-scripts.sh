@@ -7,6 +7,6 @@ do
     for executable in `find ./$directory/*.sh -executable -type f`
     do
         echo "$executable"
-        $executable
+        $executable $PWD/$directory
     done;
 done;
