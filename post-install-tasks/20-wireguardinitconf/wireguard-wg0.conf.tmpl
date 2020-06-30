@@ -4,6 +4,6 @@ Address = {{.LocalAddress}}
 
 [Peer]
 PublicKey = {{.PeerPubKey}}
-AllowedIPs = {{range $element := .AllowedIPs}} {{$element}}{{end}}
+AllowedIPs = {{range $index, $element := .AllowedIPs}}{{if $index}},{{end}}{{$element}}{{end}}
 Endpoint = {{.EndPointAndPort}}
 PersistentKeepalive = 25
