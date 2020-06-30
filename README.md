@@ -4,14 +4,14 @@ Scripts, config and helper programs to do the post install needed on the edge bo
 
 ## Ideas
 
-- [ ] Look into making a wrapper that will call all the tasks, one by one in the `post-install-tasks` folder
-  - [ ] Run numbering scheme
+- [x] Look into making a wrapper that will call all the tasks, one by one in the `post-install-tasks` folder
+  - [x] Run numbering scheme
   0 -> 100, where 0 is highest priority, equal number got equal
 
 ## Steps
 
 1. clr-installer stuff
-    - [ ] Use the previously started config and post script in:\
+    - [x] Use the previously started config and post script in:\
     <https://github.com/RaaLabs/clearlinux/tree/master/examples/mix%20-%20release%20with%20post%20install%20example>
         - [ ] Create an installer clr-installer.yaml that will hold:
             - [x] Disk partitioning
@@ -23,7 +23,7 @@ Scripts, config and helper programs to do the post install needed on the edge bo
                 - What can be run directly via the installer
                 - What should be run as a one time boot script controlled via systemd
             - [ ] Replace the dolittle logo
-        - [ ] Create a wrapper script scripts to call the other tasks
+        - [x] Create a wrapper script scripts to call the other tasks
             - [ ] In `scripts/post-install-on-edge.sh` clone the repository `git@github.com:RaaLabs/edgepostinstall.git` to a work directory on the installed machine, and the post-install.sh creates a one time triggered systemd unit who start the wrapper script for all the other tasks/scripts to be run on first bootup.
 
 2. Swupd config (done at first bootup)
