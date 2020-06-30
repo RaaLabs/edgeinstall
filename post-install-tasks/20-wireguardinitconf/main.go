@@ -36,19 +36,19 @@ func main() {
 
 	if *localAddress == "" {
 		fmt.Printf("Info: you need to specify a -localAddress\n")
-		return
+		os.Exit(1)
 	}
 
 	cfg, err := getConfig()
 	if err != nil {
 		log.Printf("%v\n", err)
-		return
+		os.Exit(1)
 	}
 
 	// Check if the values of the ip address are valid
 	if err := checkIP(*localAddress); err != nil {
 		log.Printf("error: checkIP failed: %v\n", err)
-		return
+		os.Exit(1)
 	}
 
 	// ******* Fill missing values from config, and
@@ -62,7 +62,7 @@ func main() {
 	cfg.LocalPrivateKey, cfg.LocalPublicKey, err = generateKeys(*configDir)
 	if err != nil {
 		log.Printf("%v\n", err)
-		return
+		os.Exit(1)
 	}
 
 	cfg.LocalAddress = *localAddress
