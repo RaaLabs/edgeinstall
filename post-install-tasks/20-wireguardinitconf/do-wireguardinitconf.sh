@@ -1,6 +1,6 @@
 #!/bin/bash
 
-directory = $1
+directory=$1
 
 while :
 do
