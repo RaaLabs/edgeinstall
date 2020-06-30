@@ -123,7 +123,10 @@ func generateKeys(folder string) (privateKey string, publicKey string, err error
 
 	// Generate the key and config folder if it do not exist
 	if _, err := os.Stat(folder); os.IsNotExist(err) {
-		os.Mkdir(folder, 0700)
+		err := os.Mkdir(folder, 0700)
+		if err != nil {
+			return "", "", fmt.Errorf("error: generateKeys os.Mkdir failed: %v", err)
+		}
 	}
 
 	_, err = exec.Command("bash", "-c", "wg genkey | tee "+folder+"privatekey | wg pubkey > "+folder+"publickey").Output()
