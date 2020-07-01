@@ -9,7 +9,10 @@ do
     # find all executables of type file in directory
     for executable in `find ./$directory/*.sh -executable -type f`
     do
-        echo "$executable"
+        echo "-------------------------------"
+        echo "Executing : $executable"
+        echo "-------------------------------"
         $executable ./$directory
+        echo " "
     done;
 done;
