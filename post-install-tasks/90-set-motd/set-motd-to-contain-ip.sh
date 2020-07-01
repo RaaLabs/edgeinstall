@@ -2,7 +2,7 @@
 
 mkdir -p /etc/NetworkManager/dispatcher.d
 
-cat > /etc/NetworkManager/dispatcher.d/01-motd-ips.sh << EOF
+cat > /etc/NetworkManager/dispatcher.d/01-motd-ips.sh << 'EOF'
 #!/usr/bin/env bash
 
 interface=$1
