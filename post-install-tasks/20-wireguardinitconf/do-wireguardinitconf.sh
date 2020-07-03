@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Check if a key exist, and exit script if found
+if test -e "/etc/wireguard/publickey"; then
+        echo "found existing wireguard keys, doing nothing"
+        exit
+fi
+
+echo "no keys found, generating new keys.."
+
 directory=$1
 cd $directory
 echo "Current directory is $PWD"
