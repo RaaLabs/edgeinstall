@@ -29,4 +29,5 @@ dmidecode -s system-manufacturer|xargs echo "* manufacturer : " >> report.txt
 dmidecode -s system-product-name|xargs echo "* product name : " >> report.txt
 dmidecode -s system-serial-number|xargs echo "* serial number : " >> report.txt
 
-echo "Press enter to continue..." && read
+echo "* System report *"
+cat report.txt
