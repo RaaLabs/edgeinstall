@@ -3,7 +3,7 @@
 #generated on: 2020-02-24_12:05:24_UTC
 targetMedia:
   - name: ${release}
-    size: "5000000000"
+    size: "4000000000"
     ro: "false"
     rm: "false"
     type: disk
@@ -27,7 +27,7 @@ targetMedia:
       fstype: ext4
       mountpoint: /
       label: root
-      size: "4594000000"
+      size: "3594000000"
       ro: "false"
       rm: "false"
       type: part
@@ -35,6 +35,12 @@ keyboard: us
 language: en_US.UTF-8
 
 users:
+  #- login: raalabs
+  #  username: Clear Linux OS
+  #  admin: true
+  #  # to generate a password
+  #  # clr-installer --genpass <password>
+  #  password: $6$tSfH35cpQ2StgBXQ$A4PMcdCkJD3ruf.IruL4h9jgkcMn1A/KSfR8rDi0aFyqVq4Afmx3lca3QICnYZlqcqaFRr5c9bkbK7zqNdigP/
   - login: dolittle
     username: Dolittle Default User
     admin: true
@@ -58,6 +64,13 @@ block-devices: [{name: release, file: release.img}]
 iso: true
 keepImage: true
 
+# Copy the <mixfolder>/script folder into the installer image.
+# The scripts folder should contain the .yaml file to be used
+# when running clr-install --config <config.yaml>.
+# It should also contain whatever postinstall script is defined
+# in the yaml file in the same directory.
 post-install: [
-  {cmd: "cp -a ${yamlDir}/scripts ${chrootDir}/root/"},
+  post-install: [
+    {cmd: "cp -a ${yamlDir}/scripts ${chrootDir}/root/"},
+  ]
 ]

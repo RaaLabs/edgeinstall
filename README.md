@@ -22,9 +22,8 @@ Scripts, config and helper programs to do the post install needed on the edge bo
             - [x] Post install scripts to run
                 - What can be run directly via the installer
                 - What should be run as a one time boot script controlled via systemd
-            - [ ] Replace the dolittle logo
         - [x] Create a wrapper script scripts to call the other tasks
-            - [ ] In `scripts/post-install-on-edge.sh` clone the repository `git@github.com:RaaLabs/edgepostinstall.git` to a work directory on the installed machine, and the post-install.sh creates a one time triggered systemd unit who start the wrapper script for all the other tasks/scripts to be run on first bootup.
+            - [x] In `scripts/post-install-on-edge.sh` clone the repository `git@github.com:RaaLabs/edgepostinstall.git` to a work directory on the installed machine
 
 2. Swupd config (done at first bootup)
     - [x] Use scripts from ansible automation:\
@@ -45,7 +44,7 @@ Scripts, config and helper programs to do the post install needed on the edge bo
 
     ```text
     Get available IP from ip-plan for ship\
-    Interface `enp4s?` named `WAN`\
+    Interface `enp0s31f6` named `WAN`\
     Address: entered by user\
     Gateway: entered by user\
     DNS: One should be entered by user, and the other set to `8.8.8.8`
@@ -54,8 +53,18 @@ Scripts, config and helper programs to do the post install needed on the edge bo
     Bring both interfaces up
 
     - [ ] TODO
-        - [ ] Create onetime script to run at startup ?
-        - [ ] Make sure gatway are only added to the ones who are supposed to route externally
+        - [ ] Make sure gateway are only added to the ones who are supposed to route externally
+        - [ ] TODO: Check that names of interface config files gets renamed:
+
+        ```text
+            % If NetworkManager/system-connections ikke er navngitt som Local og WAN:
+            cd /etc/NetworkManager/system-connections/
+            sudo cat Wired\ connection\ 1.nmconnection
+            Se om det er ID er local eller Wan:
+            sudo mv 'Wired connection 1.nmconnection' Local.nmconnection
+            sudo mv 'Wired connection 2.nmconnection' WAN.nmconnection
+            sudo systemctl restart NetworkManager.service
+        ```
 
 4. Generate passwords, and eventual users (done at first bootup)
     - [x]
@@ -78,16 +87,16 @@ Scripts, config and helper programs to do the post install needed on the edge bo
         Done with `wireguardinitconf`
 
 6. IOTedge (done at first bootup)
-    - [ ] TODO: Check what is needed here since it is all running in docker now
-        - [ ] `mkdir -p /etc/iotedge/storage`
-        - [ ] create `/etc/iotedge/config.yaml`
+    - [x] TODO: Check what is needed here since it is all running in docker now
+        - [x] `mkdir -p /etc/iotedge/storage`
+        - [x] create `/etc/iotedge/config.yaml`
         Check how the content is distributed to the config file, Janitor/Ansible ?
 
 7. 4G/LTE (done at first bootup)
-    - [ ] TODO, procedure described in the `doc-clear-linux` doc
-        - [ ] Install modemmanager
-        - [ ] configure modem and interface
-        - [ ] Enable modemmanager in systemd
+    - [x] TODO, procedure described in the `doc-clear-linux` doc, keeping this as a manual routine for now.
+        - [x] Install modemmanager
+        - [x] configure modem and interface
+        - [x] Enable modemmanager in systemd
 
 8. Get serial number (done at first bootup)
     - [x] Script done in ./get-systeminformation/getsysteminformation
@@ -98,3 +107,12 @@ Scripts, config and helper programs to do the post install needed on the edge bo
 
 10. Key handling for users
     - [x] copy key pairs needed for users
+
+11. Create directories/folders
+    TODO: Check out permissions sets on these directories
+    - [x] Create directories for /etc/iotedge
+    - [x] Create directories for /etc/dolittle.timeseries
+    Should probably be owned by the dolittle user so 777 pemissions could be set correctly.
+
+12. Clone the post scripts to the local installations root directory
+    - [ ]

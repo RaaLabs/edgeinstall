@@ -10,7 +10,11 @@ echo "no keys found, generating new keys.."
 
 directory=$1
 cd $directory
-echo "Current directory is $PWD"
+# echo "Current directory is $PWD"
+
+# The wireguardinitconf will return an error if any of the input
+# gave an error... loop until the command returns with no error
+# to make sure we got valid input for the wireguard conf
 while :
 do
     echo "Enter the local ip address <ip>/<mask> :";

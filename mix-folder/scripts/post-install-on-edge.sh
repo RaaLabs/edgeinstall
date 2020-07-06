@@ -20,7 +20,7 @@ cat > $CHROOTPATH/etc/swupd/config << EOF
 max_parallel_downloads=1
 
 # Maximum number of retries for download failures (integer value)
-max_retries=30
+max_retries=5
 
 [update]
 
@@ -30,3 +30,6 @@ keepcache=true
 EOF
 
 echo "EdgeOS" > ${CHROOTPATH}/etc/hostname
+
+# Clone the post install scripts to the local installation
+git clone https://github.com/RaaLabs/edgeinstall.git ${CHROOTPATH}/root/edgeinstall

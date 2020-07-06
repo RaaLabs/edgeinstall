@@ -20,23 +20,24 @@ targetMedia:
     fstype: ext4
     mountpoint: /
     label: CLR_ROOT
-    # size: "0" will make it use the remaining space of the disk
     size: "0"
     type: part
 
-bundles: [aspell-fr, strace, sysadmin-basic, cloud-native-basic, os-core-plus, procps-ng, wpa_supplicant, xz, aspell-de, gzip, linux-firmware-extras, openvswitch, os-core, acpica-unix2, dolittle-edge, powertop, python3-basic, tmux, glibc-locale, minicom, socat, NetworkManager, bootloader, dpdk, file, libstdcpp, parallel, tzdata, znc, git, iproute2, kbd, lib-openssl, linux-firmware, linux-firmware-wifi, os-core-update, diffutils, iptables, jq, less, net-tools, openssl, aspell, clr-installer, clr-network-troubleshooter, ethtool, openssh-server, zstd, aspell-es, containers-basic, gnupg, libglib, man-pages, rsync, unzip, vim, curl, p11-kit, perl-basic, shipos-branding, sudo, dolittle-edge-dell-5000, findutils, htop, os-core-webproxy, syslinux, azure-iotedge, openssh-client, wget, iperf, network-basic, patch, which, kernel-lts, kernel-native, kernel-install, shells, ModemManager]
-        
+bundles: [aspell-fr, strace, sysadmin-basic, cloud-native-basic, os-core-plus, procps-ng, wpa_supplicant, xz, aspell-de, gzip, linux-firmware-extras, openvswitch, os-core, acpica-unix2, dolittle-edge, powertop, python3-basic, tmux, glibc-locale, minicom, socat, NetworkManager, bootloader, dpdk, file, libstdcpp, parallel, tzdata, znc, git, iproute2, kbd, lib-openssl, linux-firmware, linux-firmware-wifi, os-core-update, diffutils, iptables, jq, less, net-tools, openssl, aspell, clr-installer, clr-network-troubleshooter, ethtool, openssh-server, zstd, aspell-es, containers-basic, gnupg, libglib, man-pages, rsync, unzip, vim, curl, p11-kit, perl-basic, shipos-branding, sudo, dolittle-edge-dell-5000, findutils, htop, os-core-webproxy, syslinux, azure-iotedge, openssh-client, wget, iperf, network-basic, patch, which, kernel-lts, kernel-native, kernel-install, shells, ModemManager, ippayload, sftpproxy]
+
 keyboard: us
 language: en_US.UTF-8
 
 users:
-  - login: raalabs
-    username: Clear Linux OS
+  - login: dolittle
+    username: Dolittle Default User
     admin: true
-    # to generate a password
-    # clr-installer --genpass <password>
-    password: $6$tSfH35cpQ2StgBXQ$A4PMcdCkJD3ruf.IruL4h9jgkcMn1A/KSfR8rDi0aFyqVq4Afmx3lca3QICnYZlqcqaFRr5c9bkbK7zqNdigP/
-  
+    password: $6$UmdNOTE5nqWV/2HX$FGyFdMk6gKyV2xImJIylHxnDZ2Dc2rPtukuvclNjKc/yGG0AeafshywvI7RlzuaHemIXQAB6Ar9Ufr.cVVZ4X0
+  - login: ansible
+    username: ansible
+    admin: true
+    ssh-keys: ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDUmLOOoodtalqi/iRXODJppIY0Y99y0qGb2kCFTLBF0TjH9f9Qu9LcQ09ZwYN9BHz6wIWWe/kFMhgxZhvges7yCvH6hFD8Lok8PXjmnuO+4HAdNMuaMLYEnFdfHMfr4QRYdAuRz9LowDtdE6VYP0iYZZ8CYI7T4hhB6y+k2G3GjixMR3zSyPlOH7K6kaVl9qvWG2egltfEtreLaI5fVJMB9l0zgkwfcvaWrl8GbWy5W3yQuHxQNLx+0TowBVb50CQDr6q1IF1b57J8dIjAnfzzFilcl8aHchGsw8+kG0b0av+L0rwL41ET6qvQcFANh84yygeVXWgtCNsJJdS53K+/Yxx8RW0dV/xnxWbGMhCxWz+ebI/Y+wfyWlQZOqUMqPxHmCujlIO/OSsWuRsHrHSF96B0o1KyWVl6T5j9jxyLKWWnjjcy+8/u1U/pT4fG74MnsDGKEEhgi1KwSAR+LgH2xHg2MJOXaoL2RfRS+IkqjypyYJdVW12U36miaTknf+0="]
+
 
 autoUpdate: false
 postArchive: false
@@ -48,10 +49,6 @@ keyboard: us
 language: en_US.UTF-8
 kernel: kernel-lts
 
-# The post install script will run the `./scripts/post-install-on-edge.sh` script.
-# The argument `${chrootDir}` will take the value of the `chrootDir` environment
-# variable and feed it to the script. Inside the script that argument will be
-# available as `$1`.
 post-install: [
-   {cmd: "scripts/post-install.sh ${chrootDir}"}
+   {cmd: "${yamlDir}/post-install-on-edge.sh ${chrootDir}"}
 ]
