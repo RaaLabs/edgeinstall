@@ -9,7 +9,7 @@ After=network-online.target nss-lookup.target
 Requires=network-online.target nss-lookup.target
 
 [Service]
-ExecStart=/usr/local/bin/sftpproxy -sftpRootPath=/www -sftpPass=sftppublic -sftpIP=10.9.1.244
+ExecStart=/usr/local/bin/sftpproxy -sftpRootPath=/www -sftpPass=sftppublic -sftpIP=10.9.1.243
 
 [Install]
 WantedBy=multi-user.target
