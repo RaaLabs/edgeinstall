@@ -21,5 +21,3 @@ max_retries=5
 # system (boolean value)
 keepcache=true
 EOF
-
-swupd mirror --set http://localhost:7777 --allow-insecure
