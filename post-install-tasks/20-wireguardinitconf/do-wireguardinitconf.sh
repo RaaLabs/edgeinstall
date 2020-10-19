@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# NB: This scripts takes the folder name as it's parent folder name
+# as it's first argument.
+
 # Check if a key exist, and exit script if found
 if test -e "/etc/wireguard/publickey"; then
         echo "found existing wireguard keys, doing nothing"

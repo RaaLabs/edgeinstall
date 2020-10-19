@@ -46,12 +46,14 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Get all the configs that is present in the JSON file
 	cfgs, err := getConfigs()
 	if err != nil {
 		log.Printf("%v\n", err)
 		os.Exit(1)
 	}
 
+	// Select what config to use
 	cfg, err := selectPeer(cfgs)
 	if err != nil {
 		log.Printf("%v\n", err)
@@ -85,6 +87,7 @@ func main() {
 	// createOutputConsole(*configDir, cfg)
 }
 
+// selectPeer will let you choose between the current configs.
 func selectPeer(cfgs configs) (config, error) {
 	var cfg config
 
