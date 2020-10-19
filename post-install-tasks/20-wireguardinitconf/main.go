@@ -4,6 +4,7 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -12,11 +13,17 @@ import (
 	"net"
 	"os"
 	"os/exec"
+	"strconv"
 	"strings"
 	"text/template"
 )
 
 // wireguard will be used to hold all the values to be written to the configuration file
+
+type configs struct {
+	Configs []config `json:"config"`
+}
+
 type config struct {
 	LocalPrivateKey string `json:"PrivateKey"`
 	LocalPublicKey  string
@@ -39,7 +46,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	cfg, err := getConfig()
+	cfgs, err := getConfigs()
+	if err != nil {
+		log.Printf("%v\n", err)
+		os.Exit(1)
+	}
+
+	cfg, err := selectPeer(cfgs)
 	if err != nil {
 		log.Printf("%v\n", err)
 		os.Exit(1)
@@ -69,6 +82,71 @@ func main() {
 
 	// Create config files and output to the screen
 	createOutput(*configDir, cfg)
+	// createOutputConsole(*configDir, cfg)
+}
+
+func selectPeer(cfgs configs) (config, error) {
+	var cfg config
+
+	for {
+		fmt.Println("* Found the following peers")
+		fmt.Println("-------------------------------------------")
+		for i := range cfgs.Configs {
+			fmt.Printf("%v : %v\n", i, cfgs.Configs[i].EndPointAndPort)
+		}
+		fmt.Println("-------------------------------------------")
+
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Printf("Choose endpoint : ")
+		s, err := reader.ReadString('\n')
+		if err != nil {
+			return config{}, fmt.Errorf("failed to read string: %v", err)
+		}
+
+		s = strings.TrimSuffix(s, "\n")
+
+		index, err := strconv.Atoi(s)
+		if err != nil {
+			log.Printf("error: failed to convert string to int: %v\n", err)
+			continue
+		}
+
+		if index >= len(cfgs.Configs) {
+			fmt.Println()
+			fmt.Printf("******* error : index number %v not present, try again.... *********\n", index)
+			fmt.Println()
+			continue
+		}
+
+		cfg = cfgs.Configs[index]
+
+		break
+
+	}
+
+	return cfg, nil
+}
+
+// createOutput will write all config files and the information
+// to the user on the screen
+func createOutputConsole(configDir string, cfg config) {
+	// Get the template
+	tpl, err := template.ParseFiles("./wireguard-wg0.conf.tmpl")
+	if err != nil {
+		log.Printf("error: template.ParseFiles: %v\n", err)
+		return
+	}
+
+	// Execute filling of the template, and put it all into the wg0.conf file.
+	if err := tpl.Execute(os.Stdout, cfg); err != nil {
+		log.Printf("error: tpl.Execute failed: %v\n", err)
+		return
+	}
+
+	fmt.Println("-----------------------------------------------------------------------------")
+	fmt.Printf("\n*** The command to paste in to the wireguard server\n")
+	fmt.Printf("wg set wg0 peer %v allowed-ips %v", cfg.LocalPublicKey, cfg.LocalAddress)
+	fmt.Println("\n-----------------------------------------------------------------------------")
 }
 
 // createOutput will write all config files and the information
@@ -100,20 +178,20 @@ func createOutput(configDir string, cfg config) {
 	fmt.Println("\n-----------------------------------------------------------------------------")
 }
 
-func getConfig() (config, error) {
+func getConfigs() (configs, error) {
 	// Open and unmarshal the values of the json config file
 	fhJSON, err := os.Open("./wireguard-wg0.conf.json")
 	if err != nil {
 		log.Printf("error: os.Open failed: %v\n", err)
-		return config{}, err
+		return configs{}, err
 	}
 	defer fhJSON.Close()
 
-	var wg config
+	var c configs
 	d := json.NewDecoder(fhJSON)
-	d.Decode(&wg)
+	d.Decode(&c)
 
-	return wg, nil
+	return c, nil
 }
 
 // generateKeys will run the wg commands on the os to generate

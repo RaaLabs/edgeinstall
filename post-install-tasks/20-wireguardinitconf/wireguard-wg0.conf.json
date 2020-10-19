@@ -1,11 +1,24 @@
 {
-    "PrivateKey": "",
-    "Address": "",
-    "PublicKey": "ihVXIiNUEEod9dnhl37b7nZllJaKDQ9OszRihngu2HA=",
-    "AllowedIPs": [
-        "10.9.1.1/32",
-        "51.120.77.187/32",
-        "10.9.1.244/32"
-    ],
-    "Endpoint": "onevpn.raalabs.tech:5560"
+    "config": [
+        {
+            "PrivateKey": "",
+            "Address": "",
+            "PublicKey": "ihVXIiNUEEod9dnhl37b7nZllJaKDQ9OszRihngu2HA=",
+            "AllowedIPs": [
+                "10.9.1.1/32",
+                "51.120.77.187/32",
+                "10.9.1.244/32"
+            ],
+            "Endpoint": "onevpn.raalabs.tech:5560"
+        },
+        {
+            "PrivateKey": "",
+            "Address": "",
+            "PublicKey": "C/DqZp8yKRDCJui48VZXjnB3QoslAc1DKC/LrlkaTm8=",
+            "AllowedIPs": [
+                "10.9.8.1/32"
+            ],
+            "Endpoint": "onewire.raalabs.tech:5560"
+        }
+    ]
 }
