@@ -39,7 +39,7 @@ users:
     ssh-keys: ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDUmLOOoodtalqi/iRXODJppIY0Y99y0qGb2kCFTLBF0TjH9f9Qu9LcQ09ZwYN9BHz6wIWWe/kFMhgxZhvges7yCvH6hFD8Lok8PXjmnuO+4HAdNMuaMLYEnFdfHMfr4QRYdAuRz9LowDtdE6VYP0iYZZ8CYI7T4hhB6y+k2G3GjixMR3zSyPlOH7K6kaVl9qvWG2egltfEtreLaI5fVJMB9l0zgkwfcvaWrl8GbWy5W3yQuHxQNLx+0TowBVb50CQDr6q1IF1b57J8dIjAnfzzFilcl8aHchGsw8+kG0b0av+L0rwL41ET6qvQcFANh84yygeVXWgtCNsJJdS53K+/Yxx8RW0dV/xnxWbGMhCxWz+ebI/Y+wfyWlQZOqUMqPxHmCujlIO/OSsWuRsHrHSF96B0o1KyWVl6T5j9jxyLKWWnjjcy+8/u1U/pT4fG74MnsDGKEEhgi1KwSAR+LgH2xHg2MJOXaoL2RfRS+IkqjypyYJdVW12U36miaTknf+0="]
 
 
-autoUpdate: false
+autoUpdate: true
 postArchive: false
 postReboot: false
 telemetry: false
